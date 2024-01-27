@@ -1,10 +1,9 @@
-using System;
-using System.Collections;
+﻿using System.Collections;
 using Sirenix.OdinInspector;
 using Spine.Unity;
 using UnityEngine;
 
-public class PlayerLeftAnimationController : MonoBehaviour
+public class PlayerRightAnimationController : MonoBehaviour
 {
     [SerializeField] private SkeletonAnimation animation;
     [SerializeField] private GameObject bananPrefab;
