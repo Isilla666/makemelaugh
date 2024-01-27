@@ -3,68 +3,59 @@ using Sirenix.OdinInspector;
 using Spine.Unity;
 using UnityEngine;
 
-public class PlayerRightAnimationController : MonoBehaviour
+public class PlayerRightAnimationController : MonoBehaviour, IPlayerLeftAnimationController
 {
     [SerializeField] private SkeletonAnimation animation;
     [SerializeField] private GameObject bananPrefab;
     [SerializeField] private GameObject hlopPrefab;
     [SerializeField] private Transform hlopTarget;
 
-    private PlayerLeftType lastLooped;
+    private PlayerTypeAnimation lastLooped;
     private Coroutine _coChangeAnimationBack;
     public bool isBusy;
     
-    public enum PlayerLeftType
-    {
-        Idle,
-        Fanny,
-        Sad,
-        Banan,
-        Hlop,
-        Dance
-    }
 
     [Button]
-    public void ChangeType(PlayerLeftType type)
+    public void ChangeType(PlayerTypeAnimation type)
     {
         switch (type)
         {
-            case  PlayerLeftType.Idle:
+            case  PlayerTypeAnimation.Idle:
                 animation.timeScale = 0.5f;
                 animation.loop = true;
                 animation.AnimationName = "idle";
-                lastLooped = PlayerLeftType.Idle;
+                lastLooped = PlayerTypeAnimation.Idle;
                 isBusy = false;
                 break;
-            case PlayerLeftType.Fanny:
+            case PlayerTypeAnimation.Fanny:
                 animation.timeScale = 0.5f;
                 animation.loop = true;
                 animation.AnimationName = "win";
-                lastLooped = PlayerLeftType.Fanny;
+                lastLooped = PlayerTypeAnimation.Fanny;
                 isBusy = false;
                 break;
-            case PlayerLeftType.Sad:
+            case PlayerTypeAnimation.Sad:
                 animation.timeScale = 0.5f;
                 animation.loop = true;
                 animation.AnimationName = "lose_loop";
-                lastLooped = PlayerLeftType.Sad;
+                lastLooped = PlayerTypeAnimation.Sad;
                 isBusy = false;
                 break;
-            case PlayerLeftType.Banan:
+            case PlayerTypeAnimation.Banan:
                 animation.timeScale = 0.5f;
                 animation.loop = false;
                 animation.AnimationName = "slap";
                 this.RestartCoroutine(ref _coChangeAnimationBack, Banan());
                 isBusy = true;
                 break;
-            case PlayerLeftType.Hlop:
+            case PlayerTypeAnimation.Hlop:
                 animation.timeScale = 1f;
                 animation.loop = false;
                 animation.AnimationName = "cannon";
                 this.RestartCoroutine(ref _coChangeAnimationBack, Hlop());
                 isBusy = true;
                 break;
-            case PlayerLeftType.Dance:
+            case PlayerTypeAnimation.Dance:
                 animation.timeScale = 0.5f;
                 animation.loop = true;
                 animation.AnimationName = "dance";
