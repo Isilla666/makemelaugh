@@ -10,7 +10,7 @@ namespace Behaviours
     public class GameStateController : MonoBehaviour
     {
         private ISignalListener<bool> _stateChangeListener;
-        private SignalInvoke _signalInvoke;
+        private ISignalInvoke _signalInvoke;
 
         public GameState CurrentState { get; private set; } = GameState.WaitUser;
 
@@ -18,7 +18,7 @@ namespace Behaviours
 
         private void Awake()
         {
-            _signalInvoke = SignalRegistration<SignalInvoke>.Resolve();
+            _signalInvoke = SignalRegistration<ISignalInvoke>.Resolve();
             _stateChangeListener = SignalRegistration<StateEvent>.Resolve();
             _stateChangeListener.OnValueChanged += StateChangeListenerOnOnValueChanged;
         }
@@ -31,6 +31,12 @@ namespace Behaviours
 
         public async UniTask<bool> ChangeStateTo(GameState state)
         {
+            if (!_signalInvoke.WithConnection)
+            {
+                CurrentState = state;
+                return true;
+            }
+
             _nextChangedState = true;
             await _signalInvoke.SendCommandToChangeState((int) state);
 

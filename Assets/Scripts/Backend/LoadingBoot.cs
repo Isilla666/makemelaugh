@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 namespace Backend
@@ -12,17 +11,18 @@ namespace Backend
 
         public UnityEvent onConnectedFailure;
 
-        private void Start()
+        private void Start() =>
+            StartLoading();
+
+        public async void StartLoading()
         {
-            if (client.IsConnected)
-                Connected();
-            else
-                client.OnConnected += OnClientConnected;
+            bool connected = await client.Connect();
+            OnClientConnected(connected);
         }
+
 
         private void OnClientConnected(bool success)
         {
-            client.OnConnected -= OnClientConnected;
             if (success)
                 Connected();
             else
