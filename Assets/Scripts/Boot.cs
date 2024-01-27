@@ -3,8 +3,5 @@ using UnityEngine.SceneManagement;
 
 public class Boot : MonoBehaviour
 {
-    private void Start()
-    {
-        SceneManager.LoadScene("WaitUsersScene");
-    }
+    public void LoadNextScene() => SceneManager.LoadScene("WaitUsersScene");
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Backend.Invoker;
 using Microsoft.AspNetCore.SignalR.Client;
 using UniRx.Async;
 using UnityEngine;
@@ -13,12 +14,23 @@ namespace Backend
         private const string BackendUrl = @"http://158.160.131.200:5555/game";
 #endif
 
+        private void Awake() => DontDestroyOnLoad(gameObject);
+
         public SubscriberMono[] subscribers;
 
         private HubConnection _hubConnection;
 
-        private async void Start() =>
+        private SignalInvoke _signalInvoke;
+
+        public bool IsConnected { get; private set; }
+
+        public event Action<bool> OnConnected;
+
+        private async void Start()
+        {
             _hubConnection = await CreateConnectionAsync();
+            OnConnected?.Invoke(_hubConnection != null);
+        }
 
         private async void OnApplicationQuit() =>
             await DisposeHub();
@@ -61,6 +73,8 @@ namespace Backend
                 }
             }
 
+            IsConnected = true;
+            _signalInvoke = new SignalInvoke(connection);
             return connection;
         }
 
