@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,6 +14,22 @@ public class ProgressBalancer : MonoBehaviour
     [SerializeField] private Slider slider2;
 
     private Coroutine _coTimer;
+
+    public event Action<int> TimerCompleted;
+    public event Action<float, float> ScoreUpdated;
+    public event Action<float> TimerUpdated;
+
+    public float MaxTime => maxTime;
+
+    public void SetScore(int teamId, int damage)
+    {
+        if (teamId == 1)
+            score1 += damage;
+        else
+            score2 += damage;
+        
+        ScoreWasUpdated();
+    }
     
     [Button]
     void ScoreWasUpdated()
@@ -32,6 +49,8 @@ public class ProgressBalancer : MonoBehaviour
         slider1.value = progress;
         slider2.value = 1f-progress;
         Debug.Log(progress);
+        
+        ScoreUpdated?.Invoke(score1, score2);
     }
 
     [Button]
@@ -49,7 +68,9 @@ public class ProgressBalancer : MonoBehaviour
             ScoreWasUpdated();
             yield return timeYield;
             currentTime++;
+            TimerUpdated?.Invoke(currentTime);
         } while (currentTime < maxTime);
         ScoreWasUpdated();
+        TimerCompleted?.Invoke(score1 >= score2 ? 0 : 1);
     }
 }

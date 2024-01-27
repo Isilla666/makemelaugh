@@ -24,7 +24,7 @@ public class PlayerLeftAnimationController : MonoBehaviour, IPlayerAnimationCont
     }
 
     [Button]
-    public void ChangeType(PlayerTypeAnimation typeAnimation)
+    public void ChangeType(PlayerTypeAnimation typeAnimation, Action onComplete = null)
     {
         switch (typeAnimation)
         {
@@ -53,48 +53,51 @@ public class PlayerLeftAnimationController : MonoBehaviour, IPlayerAnimationCont
                 animation.timeScale = 0.5f;
                 animation.loop = false;
                 animation.AnimationName = "slap";
-                this.RestartCoroutine(ref _coChangeAnimationBack, Banan());
+                this.RestartCoroutine(ref _coChangeAnimationBack, Banan(onComplete));
                 isBusy = true;
                 break;
             case PlayerTypeAnimation.Hlop:
                 animation.timeScale = 1f;
                 animation.loop = false;
                 animation.AnimationName = "cannon";
-                this.RestartCoroutine(ref _coChangeAnimationBack, Hlop());
+                this.RestartCoroutine(ref _coChangeAnimationBack, Hlop(onComplete));
                 isBusy = true;
                 break;
             case PlayerTypeAnimation.Dance:
                 animation.timeScale = 0.5f;
                 animation.loop = true;
                 animation.AnimationName = "dance";
-                this.RestartCoroutine(ref _coChangeAnimationBack, ChangeBack(5f));
+                this.RestartCoroutine(ref _coChangeAnimationBack, ChangeBack(5f, onComplete));
                 isBusy = true;
                 break;
         }
     }
 
-    private IEnumerator ChangeBack(float time)
+    private IEnumerator ChangeBack(float time, Action onComplete)
     {
         yield return new WaitForSeconds(time);
+        onComplete?.Invoke();
         ChangeType(lastLooped);
     }
     
-    private IEnumerator Banan()
+    private IEnumerator Banan(Action onComplete)
     {
         yield return new WaitForSeconds(0.2f);
         bananPrefab.SetActive(true);
         yield return new WaitForSeconds(1.4f);
         bananPrefab.SetActive(false);
+        onComplete?.Invoke();
         ChangeType(lastLooped);
     }
     
-    private IEnumerator Hlop()
+    private IEnumerator Hlop(Action onComplete)
     {
         yield return new WaitForSeconds(0.6f);
         var obj = Instantiate(hlopPrefab, hlopTarget, false);
         
         StartCoroutine(DeleteObjects(2.2f, obj.gameObject));
         yield return new WaitForSeconds(0.4f);
+        onComplete?.Invoke();
         ChangeType(lastLooped);
     }
 
