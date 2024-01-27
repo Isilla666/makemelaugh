@@ -1,0 +1,104 @@
+
+Desktop.png
+size: 1318,369
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+HandL1
+  rotate: true
+  xy: 2, 12
+  size: 355, 453
+  orig: 355, 453
+  offset: 0, 0
+  index: -1
+HandL2
+  rotate: true
+  xy: 1049, 82
+  size: 101, 158
+  orig: 355, 453
+  offset: 254, 142
+  index: -1
+HandR1
+  rotate: false
+  xy: 1209, 47
+  size: 107, 136
+  orig: 355, 453
+  offset: 52, 156
+  index: -1
+HandR2
+  rotate: false
+  xy: 1049, 185
+  size: 197, 182
+  orig: 355, 453
+  offset: 97, 145
+  index: -1
+body
+  rotate: false
+  xy: 775, 62
+  size: 272, 305
+  orig: 355, 453
+  offset: 0, 24
+  index: -1
+eye1-1
+  rotate: false
+  xy: 1248, 235
+  size: 66, 65
+  orig: 355, 453
+  offset: 147, 314
+  index: -1
+eye1-2
+  rotate: false
+  xy: 533, 19
+  size: 24, 24
+  orig: 355, 453
+  offset: 169, 332
+  index: -1
+eye2
+  rotate: false
+  xy: 1119, 18
+  size: 67, 62
+  orig: 355, 453
+  offset: 146, 315
+  index: -1
+eyebrowL
+  rotate: false
+  xy: 1248, 210
+  size: 50, 23
+  orig: 355, 453
+  offset: 236, 369
+  index: -1
+eyebrowR
+  rotate: false
+  xy: 457, 18
+  size: 74, 25
+  orig: 355, 453
+  offset: 148, 367
+  index: -1
+head
+  rotate: false
+  xy: 457, 45
+  size: 316, 322
+  orig: 355, 453
+  offset: 23, 131
+  index: -1
+monocle
+  rotate: false
+  xy: 1248, 302
+  size: 68, 65
+  orig: 355, 453
+  offset: 227, 314
+  index: -1
+mustache
+  rotate: false
+  xy: 775, 2
+  size: 163, 58
+  orig: 355, 453
+  offset: 138, 258
+  index: -1
+nose
+  rotate: true
+  xy: 1049, 18
+  size: 62, 68
+  orig: 355, 453
+  offset: 198, 293
+  index: -1

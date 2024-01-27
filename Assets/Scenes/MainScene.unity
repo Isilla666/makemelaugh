@@ -755,6 +755,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: princess
       objectReference: {fileID: 0}
+    - target: {fileID: -8653719598885068355, guid: af158507ccc17a24d8b0930b14eb12fc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8250169266279454816, guid: af158507ccc17a24d8b0930b14eb12fc, type: 3}
       propertyPath: m_SortingLayer
       value: -1
