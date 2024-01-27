@@ -15,6 +15,8 @@ public class PlayerLeftAnimationController : MonoBehaviour, IPlayerAnimationCont
     private Coroutine _coChangeAnimationBack;
     public bool isBusy;
     
+    public bool IsBusy => isBusy;
+    
     public PlayerTypeAnimation LastLooped
     {
         get => lastLooped;

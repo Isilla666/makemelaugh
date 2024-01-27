@@ -14,6 +14,7 @@ public class PlayerRightAnimationController : MonoBehaviour, IPlayerAnimationCon
     private Coroutine _coChangeAnimationBack;
     public bool isBusy;
 
+    public bool IsBusy => isBusy;
 
     public PlayerTypeAnimation LastLooped
     {
