@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject discoPrefab;
+    [SerializeField] private JokeController jokePrefab;
 
     [Button]
     private void SpawnDisco()
@@ -17,5 +18,18 @@ public class GameController : MonoBehaviour
         var disco = Instantiate(discoPrefab, transform, false);
         yield return new WaitForSeconds(10f);
         Destroy(disco.gameObject);
+    }
+    
+    [Button]
+    private void SpawnJoke()
+    {
+        StartCoroutine(DoJoke());
+    }
+
+    IEnumerator DoJoke()
+    {
+        var joke = Instantiate(jokePrefab, transform, false);
+        yield return new WaitForSeconds(joke.EndTime);
+        Destroy(joke.gameObject);
     }
 }

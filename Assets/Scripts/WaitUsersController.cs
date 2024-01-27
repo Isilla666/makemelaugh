@@ -1,4 +1,3 @@
-using System;
 using NativeWebSocket;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +12,8 @@ public class WaitUsersController : MonoBehaviour
     {
         SceneManager.LoadScene("MainScene");
     }
+    
+
     async void Start()
     {
         //websocket = new WebSocket("wss://echo.websocket.org");

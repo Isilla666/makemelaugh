@@ -1279,6 +1279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   discoPrefab: {fileID: 8513744304280551327, guid: 90f10215173ef3648b67b50f70258fab, type: 3}
+  jokePrefab: {fileID: 5966413865357688892, guid: b2d82af0bca74d54aac05063801796ea, type: 3}
 --- !u!1 &1922506798
 GameObject:
   m_ObjectHideFlags: 0
