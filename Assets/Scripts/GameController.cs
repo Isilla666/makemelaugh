@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject discoPrefab;
     [SerializeField] private JokeController jokePrefab;
     [SerializeField] private GameObject dogPrefab;
+    [SerializeField] private GameObject petpetPrefab;
+    [SerializeField] private Transform petpetTarget;
 
     [Button]
     private void SpawnDisco()
@@ -38,5 +40,19 @@ public class GameController : MonoBehaviour
     private void SpawnDog()
     {
         Instantiate(dogPrefab, transform, false);
+    }
+    
+    [Button]
+    private void SpawnPetpet()
+    {
+        StartCoroutine(DoPetPet());
+    }
+    
+    IEnumerator DoPetPet()
+    {
+        var petpet = Instantiate(petpetPrefab, transform, false);
+        petpet.transform.position = petpetTarget.position;
+        yield return new WaitForSeconds(4f);
+        Destroy(petpet.gameObject);
     }
 }
