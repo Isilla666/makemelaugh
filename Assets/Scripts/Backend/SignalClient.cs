@@ -9,7 +9,7 @@ namespace Backend
 {
     public class SignalClient : MonoBehaviour
     {
-#if !DEBUG
+#if DEBUG
         private const string BackendUrl = @"http://localhost:5555/game";
 #else
         private const string BackendUrl = @"https://gorbulka.ru/game";

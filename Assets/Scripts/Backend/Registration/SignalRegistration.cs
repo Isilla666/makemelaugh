@@ -1,4 +1,5 @@
 ﻿using System;
+using Backend.Events;
 using JetBrains.Annotations;
 
 namespace Backend.Registration

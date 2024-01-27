@@ -12,7 +12,7 @@ namespace Behaviours
         private ISignalListener<bool> _stateChangeListener;
         private ISignalInvoke _signalInvoke;
 
-        public GameState CurrentState { get; private set; } = GameState.WaitUser;
+        public static GameState CurrentState { get; private set; } = GameState.WaitUser;
 
         private bool? _nextChangedState;
 
