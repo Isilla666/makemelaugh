@@ -3,25 +3,26 @@ using UnityEngine;
 
 namespace Backend.Events
 {
-    public class ActionEvent : AbstractEvent<string, ActionEvent.ActionData>
+    public class ActionEvent : AbstractEvent<object, ActionEvent.ActionData>
     {
         [System.Serializable]
         public struct ActionData
         {
-            public int Id;
+            public int id;
 
-            public int Damage;
+            public int damage;
 
-            public int Team;
+            public int team;
         }
 
-        protected override string MethodName => "gameState";
+        protected override string MethodName => "actionTeam";
 
-        protected override ActionData ConvertToOutput(string input)
+        protected override ActionData ConvertToOutput(object actionData)
         {
-            var actionData = JsonUtility.FromJson<ActionData>(input);
-            Debug.Log($"ac {actionData.Id}, {actionData.Team}, {actionData.Damage}");
-            return actionData;
+            var json = actionData.ToString();
+            var data = JsonUtility.FromJson<ActionData>(json);
+            Debug.Log($"[ACTION EVENT]: Damage : {data.damage} from team {data.team} with id {data.id}");
+            return data;
         }
 
         private void Start() =>
@@ -29,5 +30,11 @@ namespace Backend.Events
 
         private void OnDestroy() =>
             SignalRegistration<ActionEvent>.Unregister();
+    }
+
+    [System.Serializable]
+    public class JsonPayload
+    {
+        public string message;
     }
 }
