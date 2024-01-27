@@ -1,88 +1,80 @@
+using System;
+using Microsoft.AspNetCore.SignalR.Client;
 using NativeWebSocket;
+using UniRx.Async;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class WaitUsersController : MonoBehaviour
 {
-    private string url = @"wss://remote-api.playstand.ru/pubsub";
+    private string url2 = @"http://localhost:5232/game";
 
-    WebSocket websocket;
+    HubConnection hubConnection;
 
     public void RunGame()
     {
         SceneManager.LoadScene("MainScene");
     }
-    
 
     async void Start()
     {
-        //websocket = new WebSocket("wss://echo.websocket.org");
-        websocket = new WebSocket(url);
-
-        websocket.OnOpen += () =>
-        {
-            Debug.Log("Connection open!");
-        };
-
-        websocket.OnError += (e) =>
-        {
-            Debug.Log("Error! " + e);
-        };
-
-        websocket.OnClose += (e) =>
-        {
-            Debug.Log("Connection closed!");
-        };
-
-        websocket.OnMessage += (bytes) =>
-        {
-            // Reading a plain text message
-            var message = System.Text.Encoding.UTF8.GetString(bytes);
-            Debug.Log("Received OnMessage! (" + bytes.Length + " bytes) " + message);
-        };
-
-        // Keep sending messages at every 0.3s
-        //InvokeRepeating(nameof(SendWebSocketMessage), 0.0f, 0.3f);
-        await websocket.Connect();
+        hubConnection = await ConnectToHubAsync();
+        await hubConnection.InvokeAsync("gameState", 1);
+        await hubConnection.InvokeAsync("gameState", 2);
     }
-
-    void Update()
+    public async UniTask<HubConnection> ConnectToHubAsync()
     {
-#if !UNITY_WEBGL || UNITY_EDITOR
-        if(websocket != null)
+        Debug.Log("ConnectToHubAsync start");
+
+        //Создаем соединение с нашим написанным тестовым хабом
+        var connection = new HubConnectionBuilder()
+            .WithUrl(url2)
+            .WithAutomaticReconnect()
+            .Build();
+  
+        Debug.Log("connection handle created");
+  
+        //подписываемся на сообщение от хаба, чтобы проверить подключение
+        connection.On<int>("gameState",
+            (id) => Debug.Log($"Res gameState: {id}"));
+  
+        while (connection.State != HubConnectionState.Connected)
         {
-            websocket.DispatchMessageQueue();
+            try
+            {
+                if (connection.State == HubConnectionState.Connecting)
+                {
+                    await UniTask.Delay(TimeSpan.FromSeconds(1));
+                    continue;
+                }
+
+                Debug.Log("start connection");
+                await connection.StartAsync();
+                Debug.Log("connection finished");
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
-#endif
+        return connection;
     }
-
-    async void SendWebSocketMessage()
-    {
-        if (websocket.State == WebSocketState.Open)
-        {
-            // Sending bytes
-            await websocket.Send(new byte[] { 10, 20, 30 });
-
-            // Sending plain text
-            await websocket.SendText("plain text message");
-        }
-    }
-
+    
     private async void OnApplicationQuit()
     {
-        if(websocket != null)
+        if(hubConnection != null)
         {
-            await websocket.Close();
+            await hubConnection.DisposeAsync();
         }
-        websocket = null;
+        hubConnection = null;
     }
 
     private async void OnDestroy()
     {
-        if(websocket != null)
+        if(hubConnection != null)
         {
-            await websocket.Close();
+            await hubConnection.DisposeAsync();
         }
-        websocket = null;
+        hubConnection = null;
     }
 }

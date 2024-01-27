@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject discoPrefab;
     [SerializeField] private JokeController jokePrefab;
+    [SerializeField] private GameObject dogPrefab;
 
     [Button]
     private void SpawnDisco()
@@ -31,5 +32,11 @@ public class GameController : MonoBehaviour
         var joke = Instantiate(jokePrefab, transform, false);
         yield return new WaitForSeconds(joke.EndTime);
         Destroy(joke.gameObject);
+    }
+    
+    [Button]
+    private void SpawnDog()
+    {
+        Instantiate(dogPrefab, transform, false);
     }
 }

@@ -99,9 +99,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 2100085803076793664}
   sprites:
-  - {fileID: 21300000, guid: 976b35899774ff74ea5fbe7bcfe59a92, type: 3}
-  - {fileID: 21300000, guid: a474367a71fb91544b12dfd83ecb9b60, type: 3}
-  - {fileID: 21300000, guid: f07fb2a897670554ca7ad8c5f2c4a2cb, type: 3}
-  - {fileID: 21300000, guid: 89ff4961e80f53545a16d1397c8305c2, type: 3}
-  - {fileID: 21300000, guid: e9f9fc06ad6f49947a8bff1d241fae33, type: 3}
+  - {fileID: 21300000, guid: df6b44e177481c14aaf5a6b1f80a4d7b, type: 3}
+  - {fileID: 21300000, guid: 28a264a9f49d68b4184961356ab8a550, type: 3}
+  - {fileID: 21300000, guid: 60c015ab1bf51724b9367044f478a0b5, type: 3}
+  - {fileID: 21300000, guid: a3a6e170e37359a47878f49ee05ef384, type: 3}
+  - {fileID: 21300000, guid: fab620a612d50a247960b9ba6b240e81, type: 3}
   delay: 0.05

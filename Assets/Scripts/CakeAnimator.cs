@@ -7,6 +7,8 @@ using UnityEngine;
 public class CakeAnimator : MonoBehaviour
 {
     [SerializeField] private Transform target;
+    [SerializeField] private Transform strPos;
+    [SerializeField] private Transform endPos;
     [SerializeField] private ParticleSystem puff;
 
     [SerializeField] private GameObject cakePrefab;
@@ -26,11 +28,11 @@ public class CakeAnimator : MonoBehaviour
     private IEnumerator DoItCake()
     {
         var cake = Instantiate(cakePrefab, transform, false);
+        cake.transform.position = Vector3.Lerp(strPos.position, endPos.position, Random.Range(0f, 1f));
         var time = timeThrow;
         var startPos = cake.transform.position;
         while (time>=0f)
         {
-            
             var dir = cake.transform.position - target.position;
             dir = new Vector3(-dir.y, dir.x, 0);
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
