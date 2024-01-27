@@ -30,13 +30,13 @@ public class VictoryState : MonoBehaviour
         if (teamId == 0)
         {
             player1.transform.position = vinnerTarget.position;
-            player1.ChangeType(PlayerLeftAnimationController.PlayerLeftType.Fanny);
+            player1.ChangeType(PlayerTypeAnimation.Fanny);
             player2.gameObject.SetActive(false);
         }
         else
         {
             player2.transform.position = vinnerTarget.position;
-            player2.ChangeType(PlayerRightAnimationController.PlayerLeftType.Fanny);
+            player2.ChangeType(PlayerTypeAnimation.Fanny);
             player1.gameObject.SetActive(false);
         }
     }
