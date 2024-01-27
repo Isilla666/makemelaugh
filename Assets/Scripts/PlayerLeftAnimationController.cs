@@ -47,7 +47,7 @@ public class PlayerLeftAnimationController : MonoBehaviour
             case PlayerLeftType.Sad:
                 animation.timeScale = 0.5f;
                 animation.loop = true;
-                animation.AnimationName = "lose";
+                animation.AnimationName = "lose_loop";
                 lastLooped = PlayerLeftType.Sad;
                 isBusy = false;
                 break;
