@@ -9,7 +9,7 @@ namespace Backend
 {
     public class SignalClient : MonoBehaviour
     {
-#if DEBUG
+#if !DEBUG
         private const string BackendUrl = @"http://localhost:5555/game";
 #else
         private const string BackendUrl = @"https://gorbulka.ru/game";
@@ -47,7 +47,7 @@ namespace Backend
                 .WithAutomaticReconnect()
                 .Build();
 
-            Debug.Log("connection handle created");
+            Debug.Log("[Signal Client]: connection handle created");
 
             foreach (var subscriber in subscribers)
                 subscriber.Subscribe(connection);
@@ -62,9 +62,9 @@ namespace Backend
                         continue;
                     }
 
-                    Debug.Log("start connection");
+                    Debug.Log("[Signal Client]: start connection");
                     await connection.StartAsync();
-                    Debug.Log("connection finished");
+                    Debug.Log("[Signal Client]: connection finished");
                 }
                 catch (Exception e)
                 {
