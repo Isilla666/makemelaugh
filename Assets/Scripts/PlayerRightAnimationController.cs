@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using Spine.Unity;
 using UnityEngine;
 
-public class PlayerRightAnimationController : MonoBehaviour, IPlayerLeftAnimationController
+public class PlayerRightAnimationController : MonoBehaviour, IPlayerAnimationController
 {
     [SerializeField] private SkeletonAnimation animation;
     [SerializeField] private GameObject bananPrefab;
@@ -13,7 +13,13 @@ public class PlayerRightAnimationController : MonoBehaviour, IPlayerLeftAnimatio
     private PlayerTypeAnimation lastLooped;
     private Coroutine _coChangeAnimationBack;
     public bool isBusy;
-    
+
+
+    public PlayerTypeAnimation LastLooped
+    {
+        get => lastLooped;
+        set => lastLooped = value;
+    }
 
     [Button]
     public void ChangeType(PlayerTypeAnimation type)
@@ -37,7 +43,7 @@ public class PlayerRightAnimationController : MonoBehaviour, IPlayerLeftAnimatio
             case PlayerTypeAnimation.Sad:
                 animation.timeScale = 0.5f;
                 animation.loop = true;
-                animation.AnimationName = "lose_loop";
+                animation.AnimationName = "lose";
                 lastLooped = PlayerTypeAnimation.Sad;
                 isBusy = false;
                 break;

@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using Spine.Unity;
 using UnityEngine;
 
-public class PlayerLeftAnimationController : MonoBehaviour, IPlayerLeftAnimationController
+public class PlayerLeftAnimationController : MonoBehaviour, IPlayerAnimationController
 {
     [SerializeField] private SkeletonAnimation animation;
     [SerializeField] private GameObject bananPrefab;
@@ -15,7 +15,11 @@ public class PlayerLeftAnimationController : MonoBehaviour, IPlayerLeftAnimation
     private Coroutine _coChangeAnimationBack;
     public bool isBusy;
     
-
+    public PlayerTypeAnimation LastLooped
+    {
+        get => lastLooped;
+        set => lastLooped = value;
+    }
 
     [Button]
     public void ChangeType(PlayerTypeAnimation typeAnimation)
