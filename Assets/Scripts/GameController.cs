@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject discoPrefab;
     [SerializeField] private JokeController jokePrefab;
+    [SerializeField] private Transform jokeTargetPlayer1;
+    [SerializeField] private Transform jokeTargetPlayer2;
     [SerializeField] private GameObject dogPrefab;
     [SerializeField] private Transform dogTargetPlayer1;
     [SerializeField] private Transform dogTargetPlayer2;
@@ -27,6 +29,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private PrincessController princessController;
     [SerializeField] private GameStateController gameStateController;
 
+    private List<GameObject> deleteForVin;
     //int - actionId(skillId)
     private Dictionary<int, List<PlayerAction>> _allActions;
 
@@ -44,6 +47,7 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        deleteForVin = new List<GameObject>();
         progressBalancer.TimerCompleted += ProgressBalancerOnTimerCompleted;
         progressBalancer.ScoreUpdated += ProgressBalancerOnScoreUpdated;
         progressBalancer.TimerUpdated += ProgressBalancerOnTimerUpdated;
@@ -138,6 +142,13 @@ public class GameController : MonoBehaviour
 
     private async void ProgressBalancerOnTimerCompleted(int teamId)
     {
+        foreach (var o in deleteForVin)
+        {
+            if (o != null && !o.Equals(null))
+            {
+                Destroy(o);
+            }
+        }
         victoryState.VictoryTeam(teamId);
         await gameStateController.ChangeStateTo(GameStateController.GameState.End);
     }
@@ -194,9 +205,10 @@ public class GameController : MonoBehaviour
 
     private void HandleClick(int teamId, Action onComplete)
     {
-    }
+    }   
 
-    private void HandleJoke(int teamId, Action onComplete) => StartCoroutine(DoJoke(onComplete));
+    [Button]
+    private void HandleJoke(int teamId, Action onComplete) => StartCoroutine(DoJoke(onComplete, teamId));
 
     private void HandleDisco(int teamId, Action onComplete) => StartCoroutine(DoDisco(onComplete));
 
@@ -241,15 +253,25 @@ public class GameController : MonoBehaviour
     IEnumerator DoDisco(Action onCompleted)
     {
         var disco = Instantiate(discoPrefab, transform, false);
+        deleteForVin.Add(disco.gameObject);
         yield return new WaitForSeconds(10f);
         Destroy(disco.gameObject);
         onCompleted?.Invoke();
     }
 
 
-    IEnumerator DoJoke(Action onComplete)
+    IEnumerator DoJoke(Action onComplete, int team)
     {
         var joke = Instantiate(jokePrefab, transform, false);
+        if (team == 0)
+        {
+            joke.transform.position = jokeTargetPlayer1.position;
+        }
+        else
+        {
+            joke.transform.position = jokeTargetPlayer2.position;
+        }
+        deleteForVin.Add(joke.gameObject);
         yield return new WaitForSeconds(joke.EndTime);
         Destroy(joke.gameObject);
         onComplete?.Invoke();

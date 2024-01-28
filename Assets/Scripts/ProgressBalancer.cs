@@ -10,8 +10,10 @@ public class ProgressBalancer : MonoBehaviour
     [SerializeField] private float currentTime = 0;
     [SerializeField] private float score1 = 1;
     [SerializeField] private float score2 = 1;
-    [SerializeField] private Slider slider1;
-    [SerializeField] private Slider slider2;
+    [SerializeField] private float maxValue;
+    [SerializeField] private float minValue;
+    [SerializeField] private SpriteRenderer slider1;
+    [SerializeField] private SpriteRenderer slider2;
 
     private Coroutine _coTimer;
 
@@ -46,11 +48,11 @@ public class ProgressBalancer : MonoBehaviour
             progress = Mathf.Lerp(progress, 1.0f, timeProgress);
         }
 
-        slider1.value = progress;
-        slider2.value = 1f-progress;
+        slider1.size = new Vector2(slider1.size.x, minValue + progress*(maxValue-minValue));
+        slider2.size = new Vector2(slider2.size.x, minValue + (1f-progress)*(maxValue-minValue));
         // Debug.Log(progress);
         
-        ScoreUpdated?.Invoke(slider1.value, slider2.value);
+        ScoreUpdated?.Invoke(progress, 1f-progress);
     }
 
     [Button]
