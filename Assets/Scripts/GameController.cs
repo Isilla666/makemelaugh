@@ -255,7 +255,7 @@ public class GameController : MonoBehaviour
         var disco = Instantiate(discoPrefab, transform, false);
         deleteForVin.Add(disco.gameObject);
         yield return new WaitForSeconds(10f);
-        Destroy(disco.gameObject);
+        Destroy(disco);
         onCompleted?.Invoke();
     }
 
@@ -273,7 +273,7 @@ public class GameController : MonoBehaviour
         }
         deleteForVin.Add(joke.gameObject);
         yield return new WaitForSeconds(joke.EndTime);
-        Destroy(joke.gameObject);
+        Destroy(joke);
         onComplete?.Invoke();
     }
 
@@ -297,7 +297,7 @@ public class GameController : MonoBehaviour
         petpet.transform.position = petpetTarget.position;
         deleteForVin.Add(petpet.gameObject);
         yield return new WaitForSeconds(4f);
-        Destroy(petpet.gameObject);
+        Destroy(petpet);
         onComplete?.Invoke();
     }
 
