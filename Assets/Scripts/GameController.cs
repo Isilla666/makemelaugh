@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject discoPrefab;
     [SerializeField] private JokeController jokePrefab;
     [SerializeField] private GameObject dogPrefab;
+    [SerializeField] private Transform dogTargetPlayer1;
+    [SerializeField] private Transform dogTargetPlayer2;
     [SerializeField] private GameObject petpetPrefab;
     [SerializeField] private Transform petpetTarget;
     [SerializeField] private PlayerLeftAnimationController leftAnimationController;
@@ -198,7 +200,7 @@ public class GameController : MonoBehaviour
 
     private void HandleDisco(int teamId, Action onComplete) => StartCoroutine(DoDisco(onComplete));
 
-    private void HandleDog(int teamId, Action onComplete) => DoDog();
+    private void HandleDog(int teamId, Action onComplete) => DoDog(teamId);
 
     private void HandlePetpet(int teamId, Action onComplete) => StartCoroutine(DoPetPet(onComplete));
 
@@ -254,9 +256,17 @@ public class GameController : MonoBehaviour
     }
 
     [Button]
-    private void DoDog()
+    private void DoDog(int team)
     {
-        Instantiate(dogPrefab, transform, false);
+        var obj = Instantiate(dogPrefab, transform, false);
+        if (team == 0)
+        {
+            obj.transform.position = dogTargetPlayer1.position;
+        }
+        else
+        {
+            obj.transform.position = dogTargetPlayer2.position;
+        }
     }
 
     IEnumerator DoPetPet(Action onComplete)

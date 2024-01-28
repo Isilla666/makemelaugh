@@ -1065,6 +1065,7 @@ Transform:
   m_Children:
   - {fileID: 1190498465}
   - {fileID: 2131830133}
+  - {fileID: 1365436711}
   m_Father: {fileID: 1840491499}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &690462980
@@ -2247,6 +2248,37 @@ MonoBehaviour:
   puff: {fileID: 2121349916269470378, guid: b6538b1ed985b3049993a7dcf893cf30, type: 3}
   cakePrefab: {fileID: 1689090803510526820, guid: 7173e2212f8642d428a40f054c5a4b18, type: 3}
   timeThrow: 0.8
+--- !u!1 &1365436710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1365436711}
+  m_Layer: 0
+  m_Name: dog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1365436711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365436710}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.38, y: -2.32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 572214066}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1380142735
 GameObject:
   m_ObjectHideFlags: 0
@@ -4038,6 +4070,8 @@ MonoBehaviour:
   discoPrefab: {fileID: 8513744304280551327, guid: 90f10215173ef3648b67b50f70258fab, type: 3}
   jokePrefab: {fileID: 5966413865357688892, guid: b2d82af0bca74d54aac05063801796ea, type: 3}
   dogPrefab: {fileID: 4997131975622089983, guid: b21e8171a9ded954da194ab5440d90fb, type: 3}
+  dogTargetPlayer1: {fileID: 535063167}
+  dogTargetPlayer2: {fileID: 1972084906}
   petpetPrefab: {fileID: 7825494610431063914, guid: 43fdc876f5449df4d9058a4182d85433, type: 3}
   petpetTarget: {fileID: 1420183745}
   leftAnimationController: {fileID: 1656296449}
@@ -4644,7 +4678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2026763162}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4659,7 +4693,7 @@ Transform:
   m_GameObject: {fileID: 2026763161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
