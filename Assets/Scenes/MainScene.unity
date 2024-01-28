@@ -1759,6 +1759,82 @@ MonoBehaviour:
   zPosition: 1
   overrideAlpha: 1
   hierarchy: {fileID: 1656296448}
+--- !u!1 &977375928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 977375929}
+  - component: {fileID: 977375930}
+  m_Layer: 0
+  m_Name: LocalSimulation Team 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &977375929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977375928}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1681664031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &977375930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 977375928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e503f63d6b0d4b0894c7cb80d2855db5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions:
+  - id: 0
+    damage: 1
+    team: 1
+  - id: 1
+    damage: 12
+    team: 1
+  - id: 2
+    damage: 35
+    team: 1
+  - id: 3
+    damage: 55
+    team: 1
+  - id: 4
+    damage: 120
+    team: 1
+  keyCode: 13
+  onActionData:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1840491500}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: HandleAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1003921146
 GameObject:
   m_ObjectHideFlags: 0
@@ -3548,6 +3624,39 @@ MonoBehaviour:
   hlopPrefab: {fileID: 4554779735077669799, guid: 1fae12c072b628f4d93d00252aa23209, type: 3}
   hlopTarget: {fileID: 1062112701}
   isBusy: 0
+--- !u!1 &1681664030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1681664031}
+  m_Layer: 0
+  m_Name: Local Game
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1681664031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681664030}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 985.2237, y: 332.97726, z: 0.064854175}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1888368113}
+  - {fileID: 977375929}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1683926331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4457,6 +4566,82 @@ MonoBehaviour:
   zPosition: 1
   overrideAlpha: 1
   hierarchy: {fileID: 1656296448}
+--- !u!1 &1888368112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1888368113}
+  - component: {fileID: 1888368114}
+  m_Layer: 0
+  m_Name: LocalSimulation Team 0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1888368113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888368112}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1681664031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1888368114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888368112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e503f63d6b0d4b0894c7cb80d2855db5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions:
+  - id: 0
+    damage: 1
+    team: 0
+  - id: 1
+    damage: 12
+    team: 0
+  - id: 2
+    damage: 35
+    team: 0
+  - id: 3
+    damage: 55
+    team: 0
+  - id: 4
+    damage: 120
+    team: 0
+  keyCode: 32
+  onActionData:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1840491500}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: HandleAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1907562712
 GameObject:
   m_ObjectHideFlags: 0
@@ -5123,3 +5308,4 @@ SceneRoots:
   - {fileID: 1960630986}
   - {fileID: 1840491499}
   - {fileID: 1500159178}
+  - {fileID: 1681664031}

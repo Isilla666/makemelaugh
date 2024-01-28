@@ -153,7 +153,7 @@ public class GameController : MonoBehaviour
         await gameStateController.ChangeStateTo(GameStateController.GameState.End);
     }
 
-    private void HandleAction(ActionEvent.ActionData actionData)
+    public void HandleAction(ActionEvent.ActionData actionData)
     {
         progressBalancer.SetScore(actionData.team, actionData.damage);
 
