@@ -23,7 +23,7 @@ public class ProgressBalancer : MonoBehaviour
 
     public void SetScore(int teamId, int damage)
     {
-        if (teamId == 1)
+        if (teamId == 0)
             score1 += damage;
         else
             score2 += damage;
@@ -48,9 +48,9 @@ public class ProgressBalancer : MonoBehaviour
 
         slider1.value = progress;
         slider2.value = 1f-progress;
-        Debug.Log(progress);
+        // Debug.Log(progress);
         
-        ScoreUpdated?.Invoke(score1, score2);
+        ScoreUpdated?.Invoke(slider1.value, slider2.value);
     }
 
     [Button]

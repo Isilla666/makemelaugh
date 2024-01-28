@@ -76,8 +76,8 @@ public class PlayerLeftAnimationController : MonoBehaviour, IPlayerAnimationCont
     private IEnumerator ChangeBack(float time, Action onComplete)
     {
         yield return new WaitForSeconds(time);
-        onComplete?.Invoke();
         ChangeType(lastLooped);
+        onComplete?.Invoke();
     }
     
     private IEnumerator Banan(Action onComplete)
@@ -86,8 +86,8 @@ public class PlayerLeftAnimationController : MonoBehaviour, IPlayerAnimationCont
         bananPrefab.SetActive(true);
         yield return new WaitForSeconds(1.4f);
         bananPrefab.SetActive(false);
-        onComplete?.Invoke();
         ChangeType(lastLooped);
+        onComplete?.Invoke();
     }
     
     private IEnumerator Hlop(Action onComplete)
@@ -97,8 +97,8 @@ public class PlayerLeftAnimationController : MonoBehaviour, IPlayerAnimationCont
         
         StartCoroutine(DeleteObjects(2.2f, obj.gameObject));
         yield return new WaitForSeconds(0.4f);
-        onComplete?.Invoke();
         ChangeType(lastLooped);
+        onComplete?.Invoke();
     }
 
     private IEnumerator DeleteObjects(float time, GameObject obj)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Backend.Events;
 using Backend.Registration;
+using Behaviours;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,7 +23,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private CakeAnimator rightCakeAnimator;
     [SerializeField] private VictoryState victoryState;
     [SerializeField] private PrincessController princessController;
-    
+    [SerializeField] private GameStateController gameStateController;
+
     //int - actionId(skillId)
     private Dictionary<int, List<PlayerAction>> _allActions;
 
@@ -43,7 +45,7 @@ public class GameController : MonoBehaviour
         progressBalancer.TimerCompleted += ProgressBalancerOnTimerCompleted;
         progressBalancer.ScoreUpdated += ProgressBalancerOnScoreUpdated;
         progressBalancer.TimerUpdated += ProgressBalancerOnTimerUpdated;
-        
+
         _stateChangeListener = SignalRegistration<ActionEvent>.Resolve();
         _stateChangeListener.OnValueChanged += HandleAction;
     }
@@ -53,10 +55,10 @@ public class GameController : MonoBehaviour
         progressBalancer.TimerCompleted -= ProgressBalancerOnTimerCompleted;
         progressBalancer.ScoreUpdated -= ProgressBalancerOnScoreUpdated;
         progressBalancer.TimerUpdated -= ProgressBalancerOnTimerUpdated;
-        
+
         _stateChangeListener.OnValueChanged -= HandleAction;
     }
-    
+
     private void Start()
     {
         _playerAnimationControllers = new List<IPlayerAnimationController>
@@ -64,7 +66,7 @@ public class GameController : MonoBehaviour
             leftAnimationController,
             rightAnimationController
         };
-        
+
         _allActions = new Dictionary<int, List<PlayerAction>>
         {
             { 0, new List<PlayerAction> { new(ActionPlaceType.Player, ActionType.Click, false, HandleClick) } },
@@ -82,7 +84,7 @@ public class GameController : MonoBehaviour
             { 3, new List<PlayerAction> { new(ActionPlaceType.Common, ActionType.Disco, true, HandleDisco) } },
             { 4, new List<PlayerAction> { new(ActionPlaceType.Common, ActionType.Joke, true, HandleJoke) } }
         };
-        
+
         progressBalancer.StartTimer();
     }
 
@@ -94,12 +96,12 @@ public class GameController : MonoBehaviour
 
     private void ProgressBalancerOnTimerUpdated(float time)
     {
-        var percent = time / progressBalancer.MaxTime;
+        var percent = time / progressBalancer.MaxTime * 100;
 
         const int idle = 25;
-        const int  smile = 50;
-        const int  laugh = 75;
-        
+        const int smile = 50;
+        const int laugh = 75;
+
         var state = percent switch
         {
             <= idle => PrincessController.PrincesseType.Idle,
@@ -121,8 +123,8 @@ public class GameController : MonoBehaviour
     {
         var state = score switch
         {
-            <= 33 => PlayerTypeAnimation.Sad,
-            <= 66 and > 33 => PlayerTypeAnimation.Idle,
+            <= 0.33f => PlayerTypeAnimation.Sad,
+            <= 0.66f and > 0.33f => PlayerTypeAnimation.Idle,
             _ => PlayerTypeAnimation.Fanny
         };
 
@@ -131,21 +133,22 @@ public class GameController : MonoBehaviour
         else
             animationController.ChangeType(state);
     }
-    
-    private void ProgressBalancerOnTimerCompleted(int teamId)
+
+    private async void ProgressBalancerOnTimerCompleted(int teamId)
     {
         victoryState.VictoryTeam(teamId);
+        await gameStateController.ChangeStateTo(GameStateController.GameState.End);
     }
 
     private void HandleAction(ActionEvent.ActionData actionData)
     {
         progressBalancer.SetScore(actionData.team, actionData.damage);
-        
-        var actions = _allActions[actionData.id];
 
+        var actions = _allActions[actionData.id];
+        
         var playerAction = actions.Count switch
         {
-            > 1 => actions[Random.Range(0, actions.Count)],
+            > 1 => actions[Random.Range(0, _playerAnimationControllers[actionData.team].IsBusy ? 2 : actions.Count)],
             > 0 => actions[0],
             _ => null
         };
@@ -159,7 +162,8 @@ public class GameController : MonoBehaviour
                 if (_runningCommonActions.Contains(playerAction.ActionType)) return;
 
                 _runningCommonActions.Add(playerAction.ActionType);
-                playerAction.Action?.Invoke(actionData.team, () => OnComplete(playerAction.ActionType, playerAction.ActionPlaceType, actionData.team));
+                playerAction.Action?.Invoke(actionData.team,
+                    () => OnComplete(playerAction.ActionType, playerAction.ActionPlaceType, actionData.team));
             }
             else
             {
@@ -167,6 +171,9 @@ public class GameController : MonoBehaviour
 
                 if (!actionTypes.Contains(playerAction.ActionType))
                     actionTypes.Add(playerAction.ActionType);
+                
+                playerAction.Action?.Invoke(actionData.team,
+                    () => OnComplete(playerAction.ActionType, playerAction.ActionPlaceType, actionData.team));
             }
         }
         else
@@ -195,30 +202,48 @@ public class GameController : MonoBehaviour
 
     private void HandlePetpet(int teamId, Action onComplete) => StartCoroutine(DoPetPet(onComplete));
 
-    private void HandleDance(int teamId, Action onComplete) 
-        => _playerAnimationControllers[teamId].ChangeType(PlayerTypeAnimation.Dance, onComplete);
+    private void HandleDance(int teamId, Action onComplete)
+    {
+        if (_playerAnimationControllers[teamId].IsBusy)
+            onComplete?.Invoke();
+        else
+            _playerAnimationControllers[teamId].ChangeType(PlayerTypeAnimation.Dance, onComplete);
+    }
 
     private void HandleCake(int teamId, Action onComplete)
     {
-        if(teamId == 0)
+        if (teamId == 0)
             leftCakeAnimator.StartAnimation();
         else
             rightCakeAnimator.StartAnimation();
     }
+
     private void HandleBanana(int teamId, Action onComplete)
-        => _playerAnimationControllers[teamId].ChangeType(PlayerTypeAnimation.Banan, onComplete);
-    
+    {
+        var team = teamId == 0 ? 1 : 0;
+        
+        if (_playerAnimationControllers[team].IsBusy)
+            onComplete?.Invoke();
+        else
+            _playerAnimationControllers[team].ChangeType(PlayerTypeAnimation.Banan, onComplete);
+    }
+
     private void HandleHlop(int teamId, Action onComplete)
-        => _playerAnimationControllers[teamId].ChangeType(PlayerTypeAnimation.Hlop, onComplete);
-    
-    IEnumerator DoDisco( Action onCompleted)
+    {
+        if (_playerAnimationControllers[teamId].IsBusy)
+            onComplete?.Invoke();
+        else
+            _playerAnimationControllers[teamId].ChangeType(PlayerTypeAnimation.Hlop, onComplete);
+    }
+
+    IEnumerator DoDisco(Action onCompleted)
     {
         var disco = Instantiate(discoPrefab, transform, false);
         yield return new WaitForSeconds(10f);
         Destroy(disco.gameObject);
         onCompleted?.Invoke();
     }
-    
+
 
     IEnumerator DoJoke(Action onComplete)
     {
@@ -233,7 +258,7 @@ public class GameController : MonoBehaviour
     {
         Instantiate(dogPrefab, transform, false);
     }
-    
+
     IEnumerator DoPetPet(Action onComplete)
     {
         var petpet = Instantiate(petpetPrefab, transform, false);

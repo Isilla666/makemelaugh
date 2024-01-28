@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6315d7eb456575458e5e3f78416796e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTime: 30
+  maxTime: 120
   currentTime: 1
   score1: 1
   score2: 1
@@ -3989,6 +3989,7 @@ GameObject:
   - component: {fileID: 1840491499}
   - component: {fileID: 1840491500}
   - component: {fileID: 1840491501}
+  - component: {fileID: 1840491502}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -4039,6 +4040,14 @@ MonoBehaviour:
   dogPrefab: {fileID: 4997131975622089983, guid: b21e8171a9ded954da194ab5440d90fb, type: 3}
   petpetPrefab: {fileID: 7825494610431063914, guid: 43fdc876f5449df4d9058a4182d85433, type: 3}
   petpetTarget: {fileID: 1420183745}
+  leftAnimationController: {fileID: 1656296449}
+  rightAnimationController: {fileID: 1038918945}
+  progressBalancer: {fileID: 32579006}
+  leftCakeAnimator: {fileID: 1328958885}
+  rightCakeAnimator: {fileID: 1741973440}
+  victoryState: {fileID: 1840491501}
+  princessController: {fileID: 1566313370}
+  gameStateController: {fileID: 1840491502}
 --- !u!114 &1840491501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4061,6 +4070,18 @@ MonoBehaviour:
   princesse: {fileID: 1566313370}
   vinnerTarget: {fileID: 191917251}
   princesseTarget: {fileID: 1425518363}
+--- !u!114 &1840491502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840491498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87dbd4eb700c45b481ebe4cdf51201c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1844158383
 GameObject:
   m_ObjectHideFlags: 0
