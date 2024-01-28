@@ -1819,7 +1819,9 @@ MonoBehaviour:
   - id: 4
     damage: 120
     team: 1
-  keyCode: 13
+  multiply: 0
+  keyCode1: 110
+  keyCode2: 109
   onActionData:
     m_PersistentCalls:
       m_Calls:
@@ -4626,7 +4628,9 @@ MonoBehaviour:
   - id: 4
     damage: 120
     team: 0
-  keyCode: 32
+  multiply: 10
+  keyCode1: 122
+  keyCode2: 120
   onActionData:
     m_PersistentCalls:
       m_Calls:
