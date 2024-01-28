@@ -2792,8 +2792,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 904393085}
   - {fileID: 266170362}
+  - {fileID: 904393085}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1500159179
@@ -2814,8 +2814,8 @@ MonoBehaviour:
   score2: 1
   maxValue: 6.4
   minValue: 0.26
-  slider1: {fileID: 904393086}
-  slider2: {fileID: 266170363}
+  slider1: {fileID: 266170363}
+  slider2: {fileID: 904393086}
 --- !u!1 &1528880051
 GameObject:
   m_ObjectHideFlags: 0

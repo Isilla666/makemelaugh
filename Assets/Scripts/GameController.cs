@@ -295,6 +295,7 @@ public class GameController : MonoBehaviour
     {
         var petpet = Instantiate(petpetPrefab, transform, false);
         petpet.transform.position = petpetTarget.position;
+        deleteForVin.Add(petpet.gameObject);
         yield return new WaitForSeconds(4f);
         Destroy(petpet.gameObject);
         onComplete?.Invoke();
