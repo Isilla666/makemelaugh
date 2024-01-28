@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private VictoryState victoryState;
     [SerializeField] private PrincessController princessController;
     [SerializeField] private GameStateController gameStateController;
+    [SerializeField] private AudioSource mainSource;
 
     private List<GameObject> deleteForVin;
     //int - actionId(skillId)
@@ -210,6 +211,7 @@ public class GameController : MonoBehaviour
     [Button]
     private void HandleJoke(int teamId, Action onComplete) => StartCoroutine(DoJoke(onComplete, teamId));
 
+    [Button]
     private void HandleDisco(int teamId, Action onComplete) => StartCoroutine(DoDisco(onComplete));
 
     private void HandleDog(int teamId, Action onComplete) => DoDog(teamId);
@@ -254,7 +256,9 @@ public class GameController : MonoBehaviour
     {
         var disco = Instantiate(discoPrefab, transform, false);
         deleteForVin.Add(disco.gameObject);
+        mainSource.mute = true;
         yield return new WaitForSeconds(10f);
+        mainSource.mute = false;
         Destroy(disco);
         onCompleted?.Invoke();
     }

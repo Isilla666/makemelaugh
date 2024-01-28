@@ -46,9 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a67ca47f43a1ed44b6aa43099db8e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vnimanie: {fileID: 8300000, guid: 941d557bce42c4745aa39c8f5bfa98b7, type: 3}
+  vnimanie: {fileID: 8300000, guid: b536e5c486f4bac4f95277f95a6f25bd, type: 3}
   jokes:
-  - {fileID: 8300000, guid: ebeaeaeccf117604e8134193d568de4b, type: 3}
+  - {fileID: 8300000, guid: 7322bdf108a37df4498ba9c158facfdb, type: 3}
+  - {fileID: 8300000, guid: e2b1dbb26cf99244683a4aa469a23852, type: 3}
+  - {fileID: 8300000, guid: 03dd7df94caf187448a2db7bd4b45590, type: 3}
+  - {fileID: 8300000, guid: b0b4df83124f170459225e90a14bf245, type: 3}
+  - {fileID: 8300000, guid: 9548a25f3be197b428a5112d8b6cbfb4, type: 3}
   audioSource: {fileID: 8971208979897826828}
 --- !u!82 &8971208979897826828
 AudioSource:
